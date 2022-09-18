@@ -15,6 +15,8 @@ class Launcher extends StatefulWidget {
 class _LauncherState extends State<Launcher> {
   int _selectedIndex = 0;
   final List<Widget> _pageWidget = <Widget>[
+    const Register(),
+    const Login(),
     const Dashboard(),
     const Telemetics(),
     const History(),
@@ -23,8 +25,24 @@ class _LauncherState extends State<Launcher> {
   final List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(
+        Icons.app_registration_rounded,
+        color: Color.fromARGB(255, 39, 179, 111),
+        size: 36.0,
+      ),
+      label: 'Register',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.login,
+        color: Color.fromARGB(255, 39, 179, 111),
+        size: 36.0,
+      ),
+      label: 'Login',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
         Icons.home,
-        color: Colors.blue,
+        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'Home',
@@ -32,7 +50,7 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.car_rental,
-        color: Colors.blue,
+        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'Telemetics',
@@ -40,7 +58,7 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.history,
-        color: Colors.blue,
+        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'History',
@@ -48,7 +66,7 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.settings,
-        color: Colors.blue,
+        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'Setting',
@@ -68,7 +86,7 @@ class _LauncherState extends State<Launcher> {
       bottomNavigationBar: BottomNavigationBar(
         items: _menuBar,
         currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
+        selectedItemColor: Color.fromARGB(255, 39, 179, 111),
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
