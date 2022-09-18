@@ -19,7 +19,7 @@ class Dashboard extends StatelessWidget {
             new Expanded(
               flex: 3,
               child: new Container(
-                color: Colors.greenAccent,
+                color: Color.fromARGB(255, 39, 179, 111),
               ),
             ),
             new Expanded(
@@ -43,12 +43,14 @@ class Dashboard extends StatelessWidget {
               lineWidth: 10.0,
               percent: 0.8,
               center: new Text(
-                "80 Score",
-                style:
-                    new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                "80 point",
+                style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: Color.fromARGB(255, 39, 179, 111)),
               ),
-              backgroundColor: Colors.amberAccent,
-              progressColor: Colors.greenAccent,
+              backgroundColor: Color.fromARGB(255, 209, 238, 223),
+              progressColor: Color.fromARGB(255, 39, 179, 111),
             ),
           ),
         ),

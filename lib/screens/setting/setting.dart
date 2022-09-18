@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/variable/variable.dart';
+import '../../constants/variable/setting/variable.dart';
 import '../../widgets/index.dart';
 
 class Setting extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SettingState extends State<Setting> {
           children: [
             Icon(
               Icons.person,
-              color: Colors.greenAccent,
+              color: Color.fromARGB(255, 39, 179, 111),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.05,
@@ -34,7 +34,7 @@ class _SettingState extends State<Setting> {
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black),
+                  color: Color.fromARGB(255, 39, 179, 111)),
             ),
           ],
         ),
