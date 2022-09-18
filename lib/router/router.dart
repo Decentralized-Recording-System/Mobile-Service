@@ -8,5 +8,8 @@ class AppRouter {
     History.id: (context) => const History(),
     Launcher.id: (context) => const Launcher(),
     Setting.id: (context) => const Setting(),
+    Login.id: (context) => const Login(),
+    Register.id: (context) => const Register(),
+    Telemetics.id: (context) => const Telemetics(),
   };
 }
