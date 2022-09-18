@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../constants/index.dart';
+import '../../widgets/index.dart';
+
 class History extends StatefulWidget {
   const History({super.key});
   static const String id = 'History';
@@ -9,54 +12,29 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
-  final controller = PageController(viewportFraction: 0.8, keepPage: true);
   @override
   Widget build(BuildContext context) {
-    final pages = List.generate(
-        8,
-        (index) => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.grey.shade300,
-              ),
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              child: Container(
-                height: 280,
-                child: Center(
-                    child: Text(
-                  "Page $index",
-                  style: TextStyle(color: Colors.indigo),
-                )),
-              ),
-            ));
     return Scaffold(
-        body: Column(
-      children: [
-        SizedBox(height: 50),
-        SizedBox(
-          height: 240,
-          child: PageView.builder(
-            controller: controller,
-            // itemCount: pages.length,
-            itemBuilder: (_, index) {
-              return pages[index % pages.length];
-            },
-          ),
+      body: SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: Column(
+          children: [
+            Container(height: 200, color: Color.fromARGB(255, 39, 179, 111)),
+            ListView.builder(
+                scrollDirection: Axis.vertical,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: historyStatusScore.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return HistoryBox(
+                    historyStatus: historyStatusScore[index],
+                    date: historyDate[index],
+                    score: historyScore[index],
+                  );
+                }),
+          ],
         ),
-        SizedBox(height: 10),
-        SmoothPageIndicator(
-            controller: controller,
-            count: pages.length,
-            effect: ScrollingDotsEffect(
-              activeStrokeWidth: 2.6,
-              activeDotScale: 1.3,
-              maxVisibleDots: 5,
-              radius: 8,
-              spacing: 10,
-              dotHeight: 12,
-              dotWidth: 12,
-            )),
-      ],
-    ));
+      ),
+    );
   }
 }
