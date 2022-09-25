@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(bodyText2: TextStyle(color: Colors.red)),
       ),
       title: 'First Flutter App',
-      initialRoute: Launcher.id, // สามารถใช้ home แทนได้
+      initialRoute: Launcher.id,
       routes: AppRouter.routeScreens,
     );
   }

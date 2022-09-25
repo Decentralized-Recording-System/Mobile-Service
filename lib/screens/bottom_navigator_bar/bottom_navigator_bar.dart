@@ -17,10 +17,12 @@ class _LauncherState extends State<Launcher> {
   final List<Widget> _pageWidget = <Widget>[
     const Register(),
     const Login(),
+    const VerifyEmail(),
     const Dashboard(),
     const Telemetics(),
     const History(),
     const Setting(),
+    const Books(),
   ];
   final List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
@@ -38,6 +40,14 @@ class _LauncherState extends State<Launcher> {
         size: 36.0,
       ),
       label: 'Login',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.verified,
+        color: Color.fromARGB(255, 39, 179, 111),
+        size: 36.0,
+      ),
+      label: 'Verify Email',
     ),
     BottomNavigationBarItem(
       icon: Icon(
@@ -70,6 +80,14 @@ class _LauncherState extends State<Launcher> {
         size: 36.0,
       ),
       label: 'Setting',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.car_crash,
+        color: Color.fromARGB(255, 39, 179, 111),
+        size: 36.0,
+      ),
+      label: 'Car',
     ),
   ];
 
