@@ -11,5 +11,7 @@ class AppRouter {
     Login.id: (context) => const Login(),
     Register.id: (context) => const Register(),
     Telemetics.id: (context) => const Telemetics(),
+    Books.id: (context) => const Books(),
+    VerifyEmail.id: (context) => const VerifyEmail(),
   };
 }

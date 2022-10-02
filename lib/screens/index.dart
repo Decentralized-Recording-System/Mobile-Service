@@ -5,3 +5,5 @@ export './bottom_navigator_bar/bottom_navigator_bar.dart';
 export './setting/setting.dart';
 export './login/login.dart';
 export './register/register.dart';
+export './sqlite_test/sqlite_test.dart';
+export './verify_email/verify_email.dart';
