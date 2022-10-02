@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
         ).copyWith(
           secondary: Colors.purple,
         ),
-        textTheme: TextTheme(bodyText2: TextStyle(color: Colors.red)),
+        textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.red)),
       ),
       title: 'First Flutter App',
-      initialRoute: Launcher.id,
+      initialRoute: Login.id,
       routes: AppRouter.routeScreens,
     );
   }

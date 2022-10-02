@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:telemetics/screens/index.dart';
 
 import '../../constants/variable/setting/variable.dart';
 import '../../widgets/index.dart';
@@ -48,14 +49,19 @@ class _SettingState extends State<Setting> {
         SettingOption(
           title: settingTitleList[0],
           icon: settingIconList[0],
+          onTaped: () {},
         ),
         SettingOption(
           title: settingTitleList[1],
           icon: settingIconList[1],
+          onTaped: () {},
         ),
         SettingOption(
           title: settingTitleList[2],
           icon: settingIconList[2],
+          onTaped: () {
+            Navigator.pushReplacementNamed(context, Login.id);
+          },
         )
       ]),
     ));
