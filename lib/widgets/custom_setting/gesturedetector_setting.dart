@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SettingOption extends StatelessWidget {
-  const SettingOption({super.key, required this.title, required this.icon});
+  const SettingOption(
+      {super.key,
+      required this.title,
+      required this.icon,
+      required this.onTaped});
   final String title;
   final IconData icon;
+  final VoidCallback onTaped;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print("hello");
-      },
+      onTap: onTaped,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         child: Row(

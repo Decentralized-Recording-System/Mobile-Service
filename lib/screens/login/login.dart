@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:telemetics/screens/bottom_navigator_bar/bottom_navigator_bar.dart';
+import 'package:telemetics/screens/index.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -80,7 +82,9 @@ class _LoginState extends State<Login> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.pushReplacementNamed(context, PassCode.id);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 39, 179, 111),
@@ -106,7 +110,9 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, Register.id);
+                        },
                         child: const Text(
                           'Create an account',
                           style: TextStyle(

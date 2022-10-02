@@ -1,4 +1,8 @@
+// ignore_for_file: unnecessary_new
+
 import 'package:flutter/material.dart';
+import 'package:telemetics/screens/bottom_navigator_bar/bottom_navigator_bar.dart';
+import 'package:telemetics/screens/index.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({super.key});
@@ -70,7 +74,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       ),
                       focusedBorder: new OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: Color.fromARGB(255, 18, 175, 102)),
                       ),
                     ),
@@ -80,7 +84,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.pushReplacementNamed(context, Login.id);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 39, 179, 111),
