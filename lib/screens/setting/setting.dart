@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telemetics/screens/index.dart';
 
 import '../../constants/variable/setting/variable.dart';
+import '../../logic/index.dart';
 import '../../widgets/index.dart';
 
 class Setting extends StatefulWidget {
@@ -60,7 +62,8 @@ class _SettingState extends State<Setting> {
           title: settingTitleList[2],
           icon: settingIconList[2],
           onTaped: () {
-            Navigator.pushReplacementNamed(context, Login.id);
+            context.read<LoginCubitCubit>().funcLogout();
+            Navigator.pushReplacementNamed(context, PassCode.id);
           },
         )
       ]),

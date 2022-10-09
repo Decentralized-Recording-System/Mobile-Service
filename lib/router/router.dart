@@ -12,7 +12,9 @@ class AppRouter {
     Register.id: (context) => const Register(),
     Telemetics.id: (context) => const Telemetics(),
     Books.id: (context) => const Books(),
-    VerifyEmail.id: (context) => const VerifyEmail(),
+    VerifyEmailScreen.id: (context) => const VerifyEmailScreen(),
     PassCode.id: (context) => const PassCode(),
+    PassCodeSetting.id: (context) => const PassCodeSetting(),
+    Splash.id: (context) => const Splash(),
   };
 }

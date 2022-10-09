@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:telemetics/model/api/index.dart';
+
+import '../../logic/index.dart';
+import '../../services/index.dart';
+import '../index.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -124,7 +130,31 @@ class _RegisterState extends State<Register> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        SignUp user = SignUp(
+                            email: "pond_nattapoom@hotmail.com",
+                            name: "nattapoom",
+                            lastName: "petchana",
+                            gender: "male",
+                            dateOfBirth: "12/11/1981",
+                            macAddress: "132",
+                            password: "1234",
+                            confirmPassword: "1234");
+                        try {
+                          context
+                              .read<LoginCubitCubit>()
+                              .funcRegister(user)
+                              .then((value) => {
+                                    if (value)
+                                      {
+                                        Navigator.pushReplacementNamed(
+                                            context, VerifyEmailScreen.id)
+                                      }
+                                  });
+                        } catch (e) {
+                          print(e.toString());
+                        }
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 39, 179, 111),
@@ -150,7 +180,9 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, Login.id);
+                        },
                         child: const Text(
                           'Sign in',
                           style: TextStyle(
