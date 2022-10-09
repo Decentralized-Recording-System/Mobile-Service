@@ -1,19 +1,24 @@
 // ignore_for_file: unnecessary_new
 
 import 'package:flutter/material.dart';
-import 'package:telemetics/screens/bottom_navigator_bar/bottom_navigator_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telemetics/screens/index.dart';
 
-class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({super.key});
-  static const String id = 'VerifyEmail';
+import '../../logic/index.dart';
+import '../../model/index.dart';
+
+class VerifyEmailScreen extends StatefulWidget {
+  const VerifyEmailScreen({super.key});
+  static const String id = 'VerifyEmailScreen';
   @override
-  State<VerifyEmail> createState() => _VerifyEmailState();
+  State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
 }
 
-class _VerifyEmailState extends State<VerifyEmail> {
+class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   final _formKey = GlobalKey<FormState>();
   var rememberValue = false;
+  final email = TextEditingController();
+  final code = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +45,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: email,
                     maxLines: 1,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
@@ -58,6 +64,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     height: 20,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: code,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter OTP';
@@ -82,23 +90,62 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   const SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacementNamed(context, Login.id);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 39, 179, 111),
-                      padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                    ),
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            VerifyEmail verifyEmail = VerifyEmail(
+                                email: "pond_nattapoom@hotmail.com",
+                                code: int.parse(code.text));
+                            context
+                                .read<LoginCubitCubit>()
+                                .verifyUserEmail(verifyEmail)
+                                .then((value) => {
+                                      if (value)
+                                        {
+                                          Navigator.pushReplacementNamed(
+                                              context, Login.id)
+                                        }
+                                    });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Color.fromARGB(255, 39, 179, 111),
+                          padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                        ),
+                        child: const Text(
+                          'Submit',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            VerifyEmail verifyEmail = VerifyEmail(
+                                email: email.text, code: int.parse(code.text));
+                            context
+                                .read<LoginCubitCubit>()
+                                .verifyUserEmail(verifyEmail)
+                                .then((value) => {print(value)});
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Color.fromARGB(255, 10, 127, 223),
+                          padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                        ),
+                        child: const Text(
+                          'refresh',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             )
