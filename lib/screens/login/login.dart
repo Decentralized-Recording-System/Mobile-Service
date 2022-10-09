@@ -1,6 +1,12 @@
+// ignore_for_file: unnecessary_new
+
 import 'package:flutter/material.dart';
-import 'package:telemetics/screens/bottom_navigator_bar/bottom_navigator_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telemetics/screens/index.dart';
+
+import '../../logic/index.dart';
+import '../../model/index.dart';
+import '../../services/index.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,10 +18,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   var rememberValue = false;
+  LoginService loginService = LoginService();
+  UserService getProfile = UserService();
+  final email = TextEditingController();
+  final password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 163, 224, 196),
+      backgroundColor: const Color.fromARGB(255, 163, 224, 196),
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -38,6 +48,7 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: email,
                     maxLines: 1,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
@@ -47,7 +58,7 @@ class _LoginState extends State<Login> {
                       ),
                       focusedBorder: new OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: Color.fromARGB(255, 18, 175, 102)),
                       ),
                     ),
@@ -56,6 +67,7 @@ class _LoginState extends State<Login> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: password,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';
@@ -72,7 +84,7 @@ class _LoginState extends State<Login> {
                       ),
                       focusedBorder: new OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                             color: Color.fromARGB(255, 18, 175, 102)),
                       ),
                     ),
@@ -81,9 +93,25 @@ class _LoginState extends State<Login> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacementNamed(context, PassCode.id);
+                        SignIn user = SignIn(
+                            email: "pond_nattapoom@hotmail.com",
+                            password: password.text);
+                        try {
+                          context
+                              .read<LoginCubitCubit>()
+                              .funcLogin(user)
+                              .then((value) => {
+                                    if (value)
+                                      {
+                                        Navigator.pushReplacementNamed(
+                                            context, PassCodeSetting.id)
+                                      }
+                                  });
+                        } catch (e) {
+                          print(e.toString());
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(
