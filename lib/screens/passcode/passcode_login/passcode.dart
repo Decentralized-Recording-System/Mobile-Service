@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/index.dart';
+import '../../../widgets/index.dart';
 
 class PassCode extends StatefulWidget {
   const PassCode({super.key});
@@ -16,7 +16,11 @@ class _PassCodeState extends State<PassCode> {
       body: Column(
         children: [
           Expanded(flex: 1, child: Container()),
-          Expanded(flex: 2, child: Numpad(length: 5, onChange: () {}))
+          const Expanded(
+              flex: 2,
+              child: NumpadLogin(
+                length: 5,
+              ))
         ],
       ),
     );

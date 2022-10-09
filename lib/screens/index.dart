@@ -7,4 +7,5 @@ export './login/login.dart';
 export './register/register.dart';
 export './sqlite_test/sqlite_test.dart';
 export './verify_email/verify_email.dart';
-export './passcode/passcode.dart';
+export './passcode/index.dart';
+export './splash_init/splash_init.dart';
