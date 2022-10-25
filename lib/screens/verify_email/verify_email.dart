@@ -22,17 +22,17 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 163, 224, 196),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'Verify Email',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).textTheme.headline1!.color,
                 fontWeight: FontWeight.bold,
                 fontSize: 40,
               ),
@@ -49,14 +49,16 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     maxLines: 1,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
+                      hintStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
                       prefixIcon: const Icon(Icons.email),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: new OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 18, 175, 102)),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ),
@@ -75,15 +77,18 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     maxLines: 1,
                     obscureText: true,
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock),
+                      prefixIcon: Icon(Icons.lock,
+                          color: Theme.of(context).primaryColor),
                       hintText: 'Enter your OTP',
+                      hintStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: new OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 18, 175, 102)),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ),
@@ -112,7 +117,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 39, 179, 111),
+                          primary: Theme.of(context).primaryColor,
                           padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                         ),
                         child: const Text(
@@ -134,7 +139,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 10, 127, 223),
+                          primary: Theme.of(context).primaryColor,
                           padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                         ),
                         child: const Text(

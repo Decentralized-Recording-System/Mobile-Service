@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/i18n/app_localizations.dart';
+
 class HistoryBox extends StatelessWidget {
   const HistoryBox(
       {super.key,
@@ -16,7 +18,7 @@ class HistoryBox extends StatelessWidget {
       child: Container(
           height: 70,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -28,15 +30,15 @@ class HistoryBox extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: Row(
               children: [
                 Expanded(
                     flex: 1,
                     child: Container(
-                      child: const Icon(
+                      child: Icon(
                         Icons.calendar_month,
-                        color: Color.fromARGB(255, 39, 179, 111),
+                        color: Theme.of(context).secondaryHeaderColor,
                       ),
                     )),
                 Expanded(
@@ -46,7 +48,7 @@ class HistoryBox extends StatelessWidget {
                         Text(
                           date,
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: Theme.of(context).textTheme.headline2!.color,
                           ),
                         )
                       ],
@@ -59,16 +61,16 @@ class HistoryBox extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        Text("view detail",
+                        Text(AppLocalizations.of(context)!.translate('Detail'),
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 39, 179, 111),
+                              color: Theme.of(context).primaryColorDark,
                             )),
                         Icon(
                           Icons.arrow_forward_ios,
-                          color: Color.fromARGB(255, 39, 179, 111),
+                          color: Theme.of(context).primaryColor,
                           size: 16,
                         )
                       ],

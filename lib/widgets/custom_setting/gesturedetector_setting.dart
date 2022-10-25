@@ -16,29 +16,34 @@ class SettingOption extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Icon(
-                  icon,
-                  color: Colors.grey,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey),
-                ),
-              ],
+            Expanded(
+              flex: 4,
+              child: Row(
+                children: [
+                  Icon(
+                    icon,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.grey,
+            Expanded(
+              flex: 1,
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey,
+              ),
             )
           ],
         ),
