@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../../constants/i18n/app_localizations.dart';
 import '../../../widgets/index.dart';
 
 class PassCode extends StatefulWidget {

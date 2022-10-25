@@ -25,17 +25,17 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 163, 224, 196),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'Sign in',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).textTheme.headline1!.color,
                 fontWeight: FontWeight.bold,
                 fontSize: 40,
               ),
@@ -52,14 +52,19 @@ class _LoginState extends State<Login> {
                     maxLines: 1,
                     decoration: InputDecoration(
                       hintText: 'Enter your email',
-                      prefixIcon: const Icon(Icons.email),
+                      hintStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: new OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 18, 175, 102)),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ),
@@ -77,15 +82,20 @@ class _LoginState extends State<Login> {
                     maxLines: 1,
                     obscureText: true,
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock),
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       hintText: 'Enter your password',
+                      hintStyle:
+                          TextStyle(color: Theme.of(context).primaryColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       focusedBorder: new OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 18, 175, 102)),
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ),
@@ -115,7 +125,7 @@ class _LoginState extends State<Login> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 39, 179, 111),
+                      primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                     ),
                     child: const Text(
@@ -131,21 +141,22 @@ class _LoginState extends State<Login> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         'Not registered yet?',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.pushReplacementNamed(context, Register.id);
                         },
-                        child: const Text(
+                        child: Text(
                           'Create an account',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 39, 179, 111)),
+                              color: Theme.of(context).primaryColor),
                         ),
                       ),
                     ],

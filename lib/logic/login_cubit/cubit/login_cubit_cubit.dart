@@ -12,9 +12,10 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
   LoginRepository loginRepository = LoginRepository();
   LoginService loginService = LoginService();
   Future<bool> funcLogin(SignIn user) async {
-    emit(StateAuthLoading());
+    emit(const StateAuthLoading(loadingStatus: true));
     String accessToken = await loginRepository.login(user);
     emit(AccessToken(accessToken: accessToken));
+    emit(const StateAuthLoading(loadingStatus: false));
     return loginRepository.getLoginState();
   }
 
@@ -23,8 +24,9 @@ class LoginCubitCubit extends Cubit<LoginCubitState> {
   }
 
   Future<bool> funcRegister(SignUp user) async {
+    emit(const StateAuthLoading(loadingStatus: true));
     var registerStatus = await loginService.signUp(user);
-
+    emit(const StateAuthLoading(loadingStatus: false));
     return registerStatus;
   }
 
