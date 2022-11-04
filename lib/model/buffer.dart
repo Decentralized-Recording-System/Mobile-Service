@@ -34,4 +34,16 @@ class Buffer {
     score.reset();
     return list;
   }
+
+  List getListXBuffer() {
+    return x;
+  }
+
+  List getListYBuffer() {
+    return y;
+  }
+
+  List getListZBuffer() {
+    return z;
+  }
 }

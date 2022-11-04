@@ -19,13 +19,13 @@ class _LauncherState extends State<Launcher> {
     const Telemetics(),
     const History(),
     const Setting(),
-    const Books(),
   ];
-  final List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
+  late Color selectedColor = Theme.of(context).primaryColor;
+
+  late final List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(
         Icons.home,
-        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'Home',
@@ -33,7 +33,6 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.car_rental,
-        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'Telemetics',
@@ -41,7 +40,6 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.history,
-        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'History',
@@ -49,18 +47,9 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(
         Icons.settings,
-        color: Color.fromARGB(255, 39, 179, 111),
         size: 36.0,
       ),
       label: 'Setting',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.car_crash,
-        color: Color.fromARGB(255, 39, 179, 111),
-        size: 36.0,
-      ),
-      label: 'Car',
     ),
   ];
 
@@ -71,13 +60,16 @@ class _LauncherState extends State<Launcher> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pageWidget.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Theme.of(context).secondaryHeaderColor,
         items: _menuBar,
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 39, 179, 111),
+        selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),

@@ -12,7 +12,13 @@ class LoginCubitInitial extends LoginCubitState {
   const LoginCubitInitial();
 }
 
-class StateAuthLoading extends LoginCubitState {}
+class StateAuthLoading extends LoginCubitState {
+  final bool loadingStatus;
+  const StateAuthLoading({required this.loadingStatus});
+
+  @override
+  List<Object> get props => [loadingStatus];
+}
 
 class AccessToken extends LoginCubitState {
   final String accessToken;

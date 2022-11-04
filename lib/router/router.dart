@@ -16,5 +16,7 @@ class AppRouter {
     PassCode.id: (context) => const PassCode(),
     PassCodeSetting.id: (context) => const PassCodeSetting(),
     Splash.id: (context) => const Splash(),
+    SetTheme.id: (context) => const SetTheme(),
+    SetLanguages.id: (context) => const SetLanguages(),
   };
 }

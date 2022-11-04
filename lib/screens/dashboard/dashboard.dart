@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../constants/i18n/index.dart';
 import '../../widgets/index.dart';
 
 class Dashboard extends StatelessWidget {
@@ -19,13 +20,13 @@ class Dashboard extends StatelessWidget {
             new Expanded(
               flex: 3,
               child: new Container(
-                color: Color.fromARGB(255, 39, 179, 111),
+                color: Theme.of(context).appBarTheme.backgroundColor,
               ),
             ),
             new Expanded(
               flex: 5,
               child: new Container(
-                color: Colors.white,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
             ),
           ],
@@ -36,21 +37,22 @@ class Dashboard extends StatelessWidget {
           height: MediaQuery.of(context).size.height / 4,
           width: MediaQuery.of(context).size.width / 2,
           child: Container(
-            decoration:
-                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                shape: BoxShape.circle),
             child: CircularPercentIndicator(
               radius: 90.0,
               lineWidth: 10.0,
               percent: 0.8,
               center: new Text(
-                "80 point",
+                "80 ${AppLocalizations.of(context)!.translate('Point')}",
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
-                    color: Color.fromARGB(255, 39, 179, 111)),
+                    color: Theme.of(context).primaryColor),
               ),
-              backgroundColor: Color.fromARGB(255, 209, 238, 223),
-              progressColor: Color.fromARGB(255, 39, 179, 111),
+              backgroundColor: Theme.of(context).primaryColorLight,
+              progressColor: Theme.of(context).primaryColor,
             ),
           ),
         ),

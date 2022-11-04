@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "685864755642",
+    "project_id": "push-noti-d60ee",
+    "storage_bucket": "push-noti-d60ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685864755642:android:fdc460bd8a0fa76f0fbd83",
+        "android_client_info": {
+          "package_name": "com.example.telemetics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685864755642-8gj0ndeo828us7tn1ipbuki3uk6q84m9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA52U6oU9B7z4M3iMUOCC3gm4IPJkFKSwc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685864755642-8gj0ndeo828us7tn1ipbuki3uk6q84m9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telemetics/screens/index.dart';
 
+import '../../constants/i18n/index.dart';
 import '../../constants/variable/setting/variable.dart';
 import '../../logic/index.dart';
 import '../../widgets/index.dart';
@@ -27,17 +28,17 @@ class _SettingState extends State<Setting> {
           children: [
             Icon(
               Icons.person,
-              color: Color.fromARGB(255, 39, 179, 111),
+              color: Theme.of(context).primaryColor,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.05,
             ),
             Text(
-              "Account",
+              AppLocalizations.of(context)!.translate('Account'),
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 39, 179, 111)),
+                  color: Theme.of(context).primaryColor),
             ),
           ],
         ),
@@ -49,18 +50,27 @@ class _SettingState extends State<Setting> {
           height: 10,
         ),
         SettingOption(
-          title: settingTitleList[0],
+          title: AppLocalizations.of(context)!.translate('Profile'),
           icon: settingIconList[0],
           onTaped: () {},
         ),
         SettingOption(
-          title: settingTitleList[1],
+          title: AppLocalizations.of(context)!.translate('Languages'),
           icon: settingIconList[1],
-          onTaped: () {},
+          onTaped: () {
+            Navigator.pushNamed(context, SetLanguages.id);
+          },
         ),
         SettingOption(
-          title: settingTitleList[2],
+          title: AppLocalizations.of(context)!.translate('Theme'),
           icon: settingIconList[2],
+          onTaped: () {
+            Navigator.pushNamed(context, SetTheme.id);
+          },
+        ),
+        SettingOption(
+          title: AppLocalizations.of(context)!.translate('Logout'),
+          icon: settingIconList[3],
           onTaped: () {
             context.read<LoginCubitCubit>().funcLogout();
             Navigator.pushReplacementNamed(context, PassCode.id);
