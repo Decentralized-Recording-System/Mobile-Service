@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:telemetics/screens/splash_init/splash_init.dart';
@@ -102,11 +103,14 @@ void onStart(ServiceInstance service) async {
   List<double>? _userAccelerometerValues;
   List<double>? _gyroscopeValues;
   List<double>? _magnetometerValues;
-  const int numList = 20;
+  // Location Locations = Location();
+  double speed = 0;
+  bool speedDuration = false;
+  double highestSpeed = 0;
+  const int numList = 200;
   late TelemeticsDatabase db = TelemeticsDatabase.instance;
   late TelemeticsTestDatabase dbTest = TelemeticsTestDatabase.instance;
   TelemeticsProcess telemetics = TelemeticsProcess(numList);
-  ScoreCase caseProcess = ScoreCase();
   // Only available for flutter 3.0.0 and later
   DartPluginRegistrant.ensureInitialized();
 
@@ -134,7 +138,7 @@ void onStart(ServiceInstance service) async {
   });
 
   // bring to foreground
-  Timer.periodic(const Duration(seconds: 1), (timer) async {
+  Timer.periodic(const Duration(milliseconds: 30), (timer) async {
     final accelerometer =
         _accelerometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
     final gyroscope =
@@ -181,17 +185,32 @@ void onStart(ServiceInstance service) async {
         );
       }
     }
+    // var loc = await Locations.getLocation();
+    // speed = loc.speed!;
+    // if (speed >= 120 && !speedDuration) {
+    //   highestSpeed = speed;
+    //   speedDuration = true;
+    // }
+    // if (speedDuration && highestSpeed <= 80) {
+    //   db.create(const TelemeticsDatabaseModel(
+    //       score: 1, highestValue: 0, lowestValue: 0));
+    //   highestSpeed = 0;
+    //   speedDuration = false;
+    // }
+
     if (accelerometer != null &&
         gyroscope != null &&
         userAccelerometer != null) {
-      var list = telemetics.test(accelerometer, gyroscope, userAccelerometer);
-      print(list);
-      if (list.isNotEmpty) {
-        dbTest.create(TelemeticsTestDatabaseModel(list: list.toString()));
-
+      var hashBrakeValue = telemetics.telemeticsProcessing(
+          accelerometer, gyroscope, userAccelerometer);
+      print(1);
+      if (hashBrakeValue.isNotEmpty) {
+        // dbTest.create(TelemeticsTestDatabaseModel(list: list.toString()));
         // caseProcess.getCase(list, db);
-        // db.create(const TelemeticsDatabaseModel(
-        //     score: 11, highestValue: 12.0, lowestValue: 15.0));
+        db.create(TelemeticsDatabaseModel(
+            score: hashBrakeValue[0],
+            highestValue: hashBrakeValue[1],
+            lowestValue: hashBrakeValue[2]));
       }
     }
 
@@ -212,8 +231,9 @@ void onStart(ServiceInstance service) async {
     service.invoke(
       'update',
       {
-        "current_date": DateTime.now().toIso8601String(),
-        "device": device,
+        "accelerometer": accelerometer,
+        "gyroscope": gyroscope,
+        "userAccelerometer": userAccelerometer,
       },
     );
   });
@@ -225,6 +245,7 @@ void main() async {
   await initializeService();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   runApp(const MyApp());
 }
 
@@ -274,6 +295,7 @@ class _MyAppState extends State<MyApp> {
         ],
         child: BlocBuilder<SettingCubitCubit, StateTheme>(
             builder: (context, state) {
+          context.read<SettingCubitCubit>().setInitialState();
           return MaterialApp(
             supportedLocales: LocaleSupport.localeSupport,
             localizationsDelegates: const [
@@ -288,7 +310,7 @@ class _MyAppState extends State<MyApp> {
                 ? ThemeClass.lightTheme
                 : ThemeClass.darkTheme,
             title: 'First Flutter App',
-            initialRoute: Splash.id,
+            initialRoute: Login.id,
             routes: AppRouter.routeScreens,
           );
         }));

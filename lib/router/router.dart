@@ -18,5 +18,8 @@ class AppRouter {
     Splash.id: (context) => const Splash(),
     SetTheme.id: (context) => const SetTheme(),
     SetLanguages.id: (context) => const SetLanguages(),
+    RealTime.id: (context) => const RealTime(),
+    TelemeticsTransaction.id: (context) => const TelemeticsTransaction(),
+    UserProfile.id: (context) => const UserProfile(),
   };
 }

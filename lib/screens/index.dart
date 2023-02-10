@@ -1,6 +1,5 @@
 export './dashboard/dashboard.dart';
 export './history/history.dart';
-export './telemetics/telemetics.dart';
 export './bottom_navigator_bar/bottom_navigator_bar.dart';
 export './setting/setting.dart';
 export './login/login.dart';
@@ -10,3 +9,6 @@ export './verify_email/verify_email.dart';
 export './passcode/index.dart';
 export './splash_init/splash_init.dart';
 export './setting/index.dart';
+export './realtimes/realtime.dart';
+export './telemetics/inedx.dart';
+export './user_profile/user.profile.dart';

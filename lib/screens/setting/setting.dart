@@ -52,7 +52,9 @@ class _SettingState extends State<Setting> {
         SettingOption(
           title: AppLocalizations.of(context)!.translate('Profile'),
           icon: settingIconList[0],
-          onTaped: () {},
+          onTaped: () {
+            Navigator.pushNamed(context, UserProfile.id);
+          },
         ),
         SettingOption(
           title: AppLocalizations.of(context)!.translate('Languages'),

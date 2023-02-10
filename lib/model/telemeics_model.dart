@@ -9,27 +9,51 @@ class TelemeticsProcess {
   late Buffer accelerometerBuffer = Buffer([], [], [], numList);
   late Buffer gyroscopeListBuffer = Buffer([], [], [], numList);
   late Buffer userAccelerometerListBuffer = Buffer([], [], [], numList);
-  ScoreCase scoreCase = ScoreCase();
+  late TelemeticsBuffer sensorListBuffer =
+      TelemeticsBuffer([], [], [], [], [], [], [], [], [], numList);
   ResultScore resultOfAllScore = ResultScore();
   TelemeticsProcess(this.numList);
 
-  List process(List<String> accelerometer, List<String> gyroscope,
+  // List process(List<String> accelerometer, List<String> gyroscope,
+  //     List<String> userAccelerometer) {
+  //   accelerometerBuffer.pushData(
+  //       accelerometer[0], accelerometer[1], accelerometer[2]);
+  //   gyroscopeListBuffer.pushData(gyroscope[0], gyroscope[1], gyroscope[2]);
+  //   userAccelerometerListBuffer.pushData(
+  //       userAccelerometer[0], userAccelerometer[1], userAccelerometer[2]);
+
+  //   if (accelerometerBuffer.x.length == numList &&
+  //       gyroscopeListBuffer.x.length == numList &&
+  //       userAccelerometerListBuffer.x.length == numList) {
+  //     print("full");
+  //     resultOfAllScore.setResultScore(
+  //         accelerometerBuffer.calculate(),
+  //         gyroscopeListBuffer.calculate(),
+  //         userAccelerometerListBuffer.calculate());
+  //     return resultOfAllScore.getResultScore();
+  //   }
+  //   return [];
+  // }
+
+  List telemeticsProcessing(List<String> accelerometer, List<String> gyroscope,
       List<String> userAccelerometer) {
-    accelerometerBuffer.pushData(
-        accelerometer[0], accelerometer[1], accelerometer[2]);
-    gyroscopeListBuffer.pushData(gyroscope[0], gyroscope[1], gyroscope[2]);
-    userAccelerometerListBuffer.pushData(
-        userAccelerometer[0], userAccelerometer[1], userAccelerometer[2]);
+    sensorListBuffer.pushData(
+        accelerometer[0],
+        accelerometer[1],
+        accelerometer[2],
+        gyroscope[0],
+        gyroscope[1],
+        gyroscope[2],
+        userAccelerometer[0],
+        userAccelerometer[1],
+        userAccelerometer[2]);
 
     if (accelerometerBuffer.x.length == numList &&
         gyroscopeListBuffer.x.length == numList &&
         userAccelerometerListBuffer.x.length == numList) {
-      print("full");
-      resultOfAllScore.setResultScore(
-          accelerometerBuffer.calculate(),
-          gyroscopeListBuffer.calculate(),
-          userAccelerometerListBuffer.calculate());
-      return resultOfAllScore.getResultScore();
+      if (sensorListBuffer.calculate().isNotEmpty) {
+        return sensorListBuffer.calculate();
+      }
     }
     return [];
   }

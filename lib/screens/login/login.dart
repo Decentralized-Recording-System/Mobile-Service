@@ -109,16 +109,17 @@ class _LoginState extends State<Login> {
                             email: "pond_nattapoom@hotmail.com",
                             password: password.text);
                         try {
-                          context
-                              .read<LoginCubitCubit>()
-                              .funcLogin(user)
-                              .then((value) => {
-                                    if (value)
-                                      {
-                                        Navigator.pushReplacementNamed(
-                                            context, PassCodeSetting.id)
-                                      }
-                                  });
+                          // context
+                          //     .read<LoginCubitCubit>()
+                          //     .funcLogin(user)
+                          //     .then((value) => {
+                          //           if (value)
+                          //             {
+                          //               Navigator.pushReplacementNamed(
+                          //                   context, PassCodeSetting.id)
+                          //             }
+                          //         });
+                          Navigator.pushReplacementNamed(context, Launcher.id);
                         } catch (e) {
                           print(e.toString());
                         }
