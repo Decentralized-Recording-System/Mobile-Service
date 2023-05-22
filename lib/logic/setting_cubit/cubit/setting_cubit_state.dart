@@ -21,5 +21,5 @@ class StateTheme extends SettingCubitState {
   final Locale locale;
   const StateTheme({required this.isDarkTheme, required this.locale});
   @override
-  List<Object> get props => [isDarkTheme];
+  List<Object> get props => [isDarkTheme, locale];
 }

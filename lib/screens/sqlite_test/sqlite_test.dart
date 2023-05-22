@@ -40,18 +40,22 @@ class _BooksState extends State<Books> {
     });
   }
 
-  Future<void> editBook(TelemeticsDatabaseModel book) async {
-    book = book.copy(score: 12, highestValue: 11.0, lowestValue: 2.0);
-    await _db.update(book);
-    setState(() {
-      books = _db.readAllData();
-    });
-  }
+  // Future<void> editBook(TelemeticsDatabaseModel book) async {
+  //   book = book.copy(score: 12, highestValue: 11.0, lowestValue: 2.0);
+  //   await _db.update(book);
+  //   setState(() {
+  //     books = _db.readAllData();
+  //   });
+  // }
 
   Future<void> newBook() async {
     i++;
     TelemeticsDatabaseModel book = TelemeticsDatabaseModel(
-        score: 12, highestValue: 11.0, lowestValue: 2.0);
+      score: 12,
+      brakingValue: 12,
+      dangerousBrakeValue: 10,
+      dangerousTurnValue: 2,
+    );
     TelemeticsDatabaseModel newBook = await _db.create(book);
     setState(() {
       books = _db.readAllData();
@@ -84,12 +88,12 @@ class _BooksState extends State<Books> {
                                       children: [
                                         ListTile(
                                           leading: IconButton(
-                                            onPressed: () => editBook(book),
+                                            onPressed: () {},
                                             icon: const Icon(Icons.edit),
                                           ),
                                           title: Text('${book.score}'),
                                           subtitle: Text(
-                                              'hightestscore: ${book.highestValue}'),
+                                              'hightestscore: ${book.brakingValue}'),
                                           trailing: IconButton(
                                             onPressed: () =>
                                                 deleteBook(book.id!),

@@ -7,7 +7,23 @@ class SignUp {
   final String? dateOfBirth;
   final String? confirmPassword;
   final String? macAddress;
+  final String? carModel;
+  final String? carLicenseNo;
+  final String? carChassisNo;
+  final int? carModelYr;
+  final String? carBodyType;
+  final int? carNoOfSeats;
+  final int? carDisplacement;
+  final int? carGVM;
   SignUp({
+    this.carModel,
+    this.carLicenseNo,
+    this.carChassisNo,
+    this.carModelYr,
+    this.carBodyType,
+    this.carNoOfSeats,
+    this.carDisplacement,
+    this.carGVM,
     this.name,
     this.lastName,
     this.email,
@@ -28,6 +44,14 @@ class SignUp {
       dateOfBirth: json['dateOfBirth'],
       confirmPassword: json['confirmPassword'],
       macAddress: json['macAddress'],
+      carModel: json['carModel'],
+      carLicenseNo: json['carLicenseNo'],
+      carChassisNo: json['carChassisNo'],
+      carModelYr: json['carModelYr'],
+      carBodyType: json['carBodyType'],
+      carNoOfSeats: json['carNoOfSeats'],
+      carDisplacement: json['carDisplacement'],
+      carGVM: json['carGVM'],
     );
   }
   Map<String, dynamic> toJson() => {
@@ -39,5 +63,13 @@ class SignUp {
         "dateOfBirth": dateOfBirth,
         "confirmPassword": confirmPassword,
         "macAddress": macAddress,
+        "carModel": carModel,
+        "carLicenseNo": carLicenseNo,
+        "carChassisNo": carChassisNo,
+        "carModelYr": carModelYr,
+        "carBodyType": carBodyType,
+        "carNoOfSeats": carNoOfSeats,
+        "carDisplacement": carDisplacement,
+        "carGVM": carGVM,
       };
 }

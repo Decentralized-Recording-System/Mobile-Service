@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import '../screens/contracts/contracts.dart';
 import '../screens/index.dart';
+import '../screens/model_history/model_detail_history.dart';
+import '../screens/model_history/model_history.dart';
+import '../screens/my_contract/list_contract.dart';
+import '../screens/my_contract/mycontract.dart';
+import '../screens/register/register_detail.dart';
+import '../widgets/register/register_detail.dart';
 
 class AppRouter {
   static final routeScreens = <String, WidgetBuilder>{
@@ -18,5 +25,14 @@ class AppRouter {
     Splash.id: (context) => const Splash(),
     SetTheme.id: (context) => const SetTheme(),
     SetLanguages.id: (context) => const SetLanguages(),
+    RealTime.id: (context) => const RealTime(),
+    TelemeticsTransaction.id: (context) => const TelemeticsTransaction(),
+    UserProfile.id: (context) => const UserProfile(),
+    RegisterDetailPage.id: (context) => const RegisterDetailPage(),
+    ModelHistory.id: (context) => const ModelHistory(),
+    ModelDetailHistory.id: (context) => const ModelDetailHistory(),
+    Contract.id: (context) => const Contract(),
+    MyContract.id: (context) => const MyContract(),
+    MyDetailContract.id: (context) => const MyDetailContract(),
   };
 }

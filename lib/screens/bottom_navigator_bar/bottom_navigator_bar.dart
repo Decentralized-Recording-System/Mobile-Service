@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../logic/dashboard_cubit/dashboard_cubit_cubit.dart';
 import '../index.dart';
 
 class Launcher extends StatefulWidget {
@@ -56,6 +58,13 @@ class _LauncherState extends State<Launcher> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if (index == 0) {
+        context.read<DashboardCubitCubit>().funcGetDataDrivingResult();
+      } else if (index == 3) {
+        context.read<DashboardCubitCubit>().getHistoryState();
+      } else {
+        context.read<DashboardCubitCubit>().funcGetDataDriving();
+      }
     });
   }
 

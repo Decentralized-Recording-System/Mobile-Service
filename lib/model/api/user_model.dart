@@ -4,13 +4,14 @@ class Users {
   final String? email;
   final String? gender;
   final String? dateOfBirth;
-  Users({
-    this.Name,
-    this.LastName,
-    this.email,
-    this.gender,
-    this.dateOfBirth,
-  });
+  final String? userId;
+  Users(
+      {this.Name,
+      this.LastName,
+      this.email,
+      this.gender,
+      this.dateOfBirth,
+      this.userId});
 
   factory Users.fromJson(Map<String, dynamic> json) {
     return Users(
@@ -19,6 +20,7 @@ class Users {
       email: json['email'],
       gender: json['gender'],
       dateOfBirth: json['dateOfBirth'],
+      userId: json['userId'],
     );
   }
 }

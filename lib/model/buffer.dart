@@ -6,9 +6,9 @@ class Buffer {
   List z;
   int numList;
   final SumResult score = SumResult();
-  late List list = [];
   Buffer(this.x, this.y, this.z, this.numList);
-
+  int hashBrake = 0;
+  bool hashBrakeStatus = false;
   void pushData(String xData, String yData, String zData) {
     x.add(xData);
     y.add(yData);
@@ -21,18 +21,21 @@ class Buffer {
     z = [];
   }
 
-  List calculate() {
+  int calculateUserAccelerometerListBuffer() {
+    hashBrake = 0;
     for (var i = 0; i < numList; i++) {
       if (x[i] != null) {
-        score.x = score.x + double.parse(x[i]);
-        score.y = score.y + double.parse(y[i]);
-        score.z = score.z + double.parse(z[i]);
+        if (x[i] <= -6 || y[i] <= -6 || z[i] <= -6) {
+          hashBrakeStatus = true;
+        }
+        if (hashBrakeStatus && (x[i] >= -2 || y[i] >= -2 || z[i] >= -2)) {
+          hashBrakeStatus = false;
+          hashBrake += 1;
+        }
       }
     }
     reset();
-    list = [score.x, score.y, score.z];
-    score.reset();
-    return list;
+    return hashBrake;
   }
 
   List getListXBuffer() {

@@ -20,12 +20,12 @@ class LoginService {
   Future<bool> signUp(SignUp user) async {
     try {
       var params = jsonEncode(user.toJson());
-
       NetworkHelper networkHelper = NetworkHelper();
       await networkHelper.postDataAPI('register', params);
 
       return true;
     } catch (e) {
+      print(e.toString());
       return false;
     }
   }

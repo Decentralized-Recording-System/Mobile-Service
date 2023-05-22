@@ -22,7 +22,7 @@ class _RegisterState extends State<Register> {
       body: Stack(
         children: const [
           RegisterColumn(),
-          Loading(),
+          // Loading(),
         ],
       ),
     );

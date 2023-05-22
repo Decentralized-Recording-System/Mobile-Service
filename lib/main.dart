@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:telemetics/screens/splash_init/splash_init.dart';
@@ -18,6 +19,7 @@ import 'package:flutter_background_service_android/flutter_background_service_an
 import 'package:device_info_plus/device_info_plus.dart';
 import 'constants/i18n/index.dart';
 import 'constants/index.dart';
+import 'logic/dashboard_cubit/dashboard_cubit_cubit.dart';
 import 'logic/index.dart';
 import 'model/index.dart';
 import 'repositories/index.dart';
@@ -102,11 +104,14 @@ void onStart(ServiceInstance service) async {
   List<double>? _userAccelerometerValues;
   List<double>? _gyroscopeValues;
   List<double>? _magnetometerValues;
-  const int numList = 20;
+  // Location Locations = Location();
+  double speed = 0;
+  bool speedDuration = false;
+  double highestSpeed = 0;
+  const int numList = 200;
   late TelemeticsDatabase db = TelemeticsDatabase.instance;
   late TelemeticsTestDatabase dbTest = TelemeticsTestDatabase.instance;
   TelemeticsProcess telemetics = TelemeticsProcess(numList);
-  ScoreCase caseProcess = ScoreCase();
   // Only available for flutter 3.0.0 and later
   DartPluginRegistrant.ensureInitialized();
 
@@ -181,17 +186,34 @@ void onStart(ServiceInstance service) async {
         );
       }
     }
+    // var loc = await Locations.getLocation();
+    // speed = loc.speed!;
+    // if (speed >= 120 && !speedDuration) {
+    //   highestSpeed = speed;
+    //   speedDuration = true;
+    // }
+    // if (speedDuration && highestSpeed <= 80) {
+    //   db.create(const TelemeticsDatabaseModel(
+    //       score: 1, highestValue: 0, lowestValue: 0));
+    //   highestSpeed = 0;
+    //   speedDuration = false;
+    // }
+
     if (accelerometer != null &&
         gyroscope != null &&
         userAccelerometer != null) {
-      var list = telemetics.test(accelerometer, gyroscope, userAccelerometer);
-      print(list);
-      if (list.isNotEmpty) {
-        dbTest.create(TelemeticsTestDatabaseModel(list: list.toString()));
+      var hashBrakeValue = telemetics.telemeticsProcessing(
+          accelerometer, gyroscope, userAccelerometer);
 
+      if (hashBrakeValue.isNotEmpty) {
+        print("get data");
+        // dbTest.create(TelemeticsTestDatabaseModel(list: list.toString()));
         // caseProcess.getCase(list, db);
-        // db.create(const TelemeticsDatabaseModel(
-        //     score: 11, highestValue: 12.0, lowestValue: 15.0));
+        db.create(TelemeticsDatabaseModel(
+            score: hashBrakeValue[0],
+            brakingValue: hashBrakeValue[1],
+            dangerousBrakeValue: hashBrakeValue[2],
+            dangerousTurnValue: 12));
       }
     }
 
@@ -212,8 +234,9 @@ void onStart(ServiceInstance service) async {
     service.invoke(
       'update',
       {
-        "current_date": DateTime.now().toIso8601String(),
-        "device": device,
+        "accelerometer": accelerometer,
+        "gyroscope": gyroscope,
+        "userAccelerometer": userAccelerometer,
       },
     );
   });
@@ -225,6 +248,7 @@ void main() async {
   await initializeService();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   runApp(const MyApp());
 }
 
@@ -238,6 +262,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   LoginRepository loginRepository = LoginRepository();
   SettingRepository settingRepository = SettingRepository();
+  DrivingRepository drivingRepository = DrivingRepository();
   @override
   void initState() {
     FirebaseMessaging.instance.getInitialMessage().then((message) => {
@@ -271,9 +296,14 @@ class _MyAppState extends State<MyApp> {
             create: (context) =>
                 SettingCubitCubit(settingRepository: settingRepository),
           ),
+          BlocProvider(
+            create: (context) =>
+                DashboardCubitCubit(drivingRepository: drivingRepository),
+          ),
         ],
         child: BlocBuilder<SettingCubitCubit, StateTheme>(
             builder: (context, state) {
+          context.read<SettingCubitCubit>().setInitialState();
           return MaterialApp(
             supportedLocales: LocaleSupport.localeSupport,
             localizationsDelegates: const [

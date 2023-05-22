@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../logic/dashboard_cubit/dashboard_cubit_cubit.dart';
 import '../../model/index.dart';
 import '../../screens/index.dart';
 import '../../services/index.dart';
@@ -38,6 +40,7 @@ class _NumpadState extends State<Numpad> {
   }
 
   void validate() {
+    print('123');
     if (number.length > widget.length - 1) {
       PassCodePwdDatabaseModel passCodePwd =
           PassCodePwdDatabaseModel(pwdPassCode: number);
@@ -46,11 +49,9 @@ class _NumpadState extends State<Numpad> {
       passCodeDatabase.create(passCodePwd);
       loginStatusDatabase.create(loginStatus);
       setState(() {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushReplacementNamed(context, Launcher.id);
-        });
+        context.read<DashboardCubitCubit>().funcGetDataDrivingResult();
+        number = '';
       });
-      number = '';
     }
   }
 
