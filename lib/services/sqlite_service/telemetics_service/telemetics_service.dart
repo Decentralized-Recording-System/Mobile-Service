@@ -34,8 +34,9 @@ class TelemeticsDatabase {
 CREATE TABLE $tableTelemetics (
   ${TelemeticsFields.id} $idType,
   ${TelemeticsFields.score} $integerType,
-  ${TelemeticsFields.highestValue} $textType,
-  ${TelemeticsFields.lowestValue} $textType
+  ${TelemeticsFields.brakingValue} $textType,
+  ${TelemeticsFields.dangerousBrakeValue} $textType,
+  ${TelemeticsFields.dangerousTurnValue} $textType
 )
 ''');
   }

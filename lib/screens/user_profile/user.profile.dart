@@ -28,14 +28,21 @@ class _UserProfileState extends State<UserProfile> {
       body: Column(children: [
         TelemeticsButton(
             onPressed: () {
-              dbAcc.create(
-                  TelemeticsAccelerationModel(score: 1, highestValue: 1));
+              dbAcc.create(TelemeticsAccelerationModel(
+                score: 1,
+                averageSpeed: 80,
+                dangerousSpeed: 89.5,
+                drivingTime: 292,
+              ));
             },
             text: "create Acceleration Data"),
         TelemeticsButton(
             onPressed: () {
               db.create(TelemeticsDatabaseModel(
-                  score: 1, highestValue: 5, lowestValue: 0));
+                  brakingValue: 5,
+                  dangerousBrakeValue: 2,
+                  dangerousTurnValue: 3,
+                  score: 1));
             },
             text: "create braking Data")
       ]),

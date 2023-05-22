@@ -8,7 +8,7 @@ class VerifyService {
   Future<bool> verifyEmail(VerifyEmail user) async {
     try {
       var params = jsonEncode(user.toJson());
-
+      print(params);
       NetworkHelper networkHelper = NetworkHelper();
       final data = await networkHelper.postDataAPI('activate', params);
       print(data);

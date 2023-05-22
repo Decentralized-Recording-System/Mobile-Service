@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:telemetics/widgets/register/register_detail.dart';
 
 import '../../logic/index.dart';
 import '../../model/index.dart';
 import '../../screens/index.dart';
+import '../../screens/register/register_detail.dart';
 
 class RegisterColumn extends StatefulWidget {
   const RegisterColumn({super.key});
@@ -146,29 +148,14 @@ class _RegisterColumnState extends State<RegisterColumn> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      SignUp user = SignUp(
-                          email: "pond_nattapoom@hotmail.com",
-                          name: "nattapoom",
-                          lastName: "petchana",
-                          gender: "male",
-                          dateOfBirth: "12/11/1981",
-                          macAddress: "132",
-                          password: "1234",
-                          confirmPassword: "1234");
-                      try {
-                        context
-                            .read<LoginCubitCubit>()
-                            .funcRegister(user)
-                            .then((value) => {
-                                  if (value)
-                                    {
-                                      Navigator.pushReplacementNamed(
-                                          context, VerifyEmailScreen.id)
-                                    }
-                                });
-                      } catch (e) {
-                        print(e.toString());
-                      }
+                      Navigator.pushReplacementNamed(
+                          context, RegisterDetailPage.id,
+                          arguments: {
+                            "email": "yruzkid34201@gmail.com",
+                            "name": "nattapoom",
+                            "lastName": "petchana",
+                            "password": 1234,
+                          });
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -176,7 +163,7 @@ class _RegisterColumnState extends State<RegisterColumn> {
                     padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                   ),
                   child: const Text(
-                    'Sign up',
+                    'Next',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -196,9 +183,7 @@ class _RegisterColumnState extends State<RegisterColumn> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, Login.id);
-                      },
+                      onPressed: () {},
                       child: Text(
                         'Sign in',
                         style: TextStyle(

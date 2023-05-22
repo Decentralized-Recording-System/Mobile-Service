@@ -69,16 +69,16 @@ class TelemeticsBuffer {
     for (var i = 0; i < numList; i++) {
       if (userAccelerometerX[i] != null) {
         if (!hashBrakeStatus &&
-            (userAccelerometerX[i] <= -6 ||
-                userAccelerometerY[i] <= -6 ||
-                userAccelerometerZ[i] <= -6)) {
+            (userAccelerometerX[i] <= -1 ||
+                userAccelerometerY[i] <= -1 ||
+                userAccelerometerZ[i] <= -1)) {
           hashBrakeStatus = true;
           brakeDuration = true;
         }
         if (hashBrakeStatus &&
-            (userAccelerometerX[i] >= -2 ||
-                userAccelerometerY[i] >= -2 ||
-                userAccelerometerZ[i] >= -2)) {
+            (userAccelerometerX[i] >= -0.5 ||
+                userAccelerometerY[i] >= -0.5 ||
+                userAccelerometerZ[i] >= -0.5)) {
           hashBrakeStatus = false;
           brakeDuration = false;
           brakeDurationCount = 0;

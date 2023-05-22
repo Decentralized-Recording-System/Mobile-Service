@@ -35,7 +35,9 @@ class TelemeticsAccelerationDatabase {
 CREATE TABLE $tableTelemeticsAcceleration (
   ${TelemeticsAccelerationFields.id} $idType,
   ${TelemeticsAccelerationFields.score} $integerType,
-  ${TelemeticsAccelerationFields.highestValue} $textType
+  ${TelemeticsAccelerationFields.dangerousSpeed} $textType,
+  ${TelemeticsAccelerationFields.averageSpeed} $textType,
+  ${TelemeticsAccelerationFields.drivingTime} $textType
 )
 ''');
   }

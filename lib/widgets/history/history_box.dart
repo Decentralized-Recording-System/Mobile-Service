@@ -8,13 +8,20 @@ class HistoryBox extends StatelessWidget {
       required this.date,
       required this.score,
       required this.braking,
-      required this.acceleration});
+      required this.dangerousBrake,
+      required this.dangerousTurn,
+      required this.dangerousSpeed,
+      required this.averageSpeed,
+      required this.drivingTime});
 
   final String date;
   final String score;
   final String braking;
-  final String acceleration;
-
+  final String dangerousBrake;
+  final String dangerousTurn;
+  final String dangerousSpeed;
+  final String averageSpeed;
+  final String drivingTime;
   @override
   Widget build(BuildContext context) {
     Future<void> _showMyDialog() async {
@@ -99,14 +106,102 @@ class HistoryBox extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "acceleration",
+                        "dangerousBrake",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).primaryColor),
                       ),
                       Text(
-                        acceleration,
+                        dangerousBrake,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).textTheme.subtitle1?.color),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "dangerousTurn",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                      Text(
+                        dangerousTurn,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).textTheme.subtitle1?.color),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "dangerousSpeed",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                      Text(
+                        dangerousSpeed,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).textTheme.subtitle1?.color),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "averageSpeed",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                      Text(
+                        averageSpeed,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).textTheme.subtitle1?.color),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "drivingTime",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                      Text(
+                        drivingTime,
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

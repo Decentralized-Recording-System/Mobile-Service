@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../logic/dashboard_cubit/dashboard_cubit_cubit.dart';
 import '../../../model/index.dart';
 import '../../../services/index.dart';
 import '../../../utils/private_keys/private_key.dart';
@@ -20,61 +22,29 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
   late TelemeticsAccelerationDatabase dbAcc;
   late Future<List<TelemeticsDatabaseModel>> brakingScore;
   late Future<List<TelemeticsAccelerationModel>> accelerationScore;
-  late Client httpClient;
-  late Web3Client ethClient;
-  late Web3Dart web3Function = Web3Dart();
-  final url = "https://indy-chain1.celab.network";
   late int resultOfScoreAcceleration = 0;
   late int resultOfScoreBraking = 0;
+  List brakingScoreList = [];
+  List accelerationScoreList = [];
+  double brakingValue = 0;
+  double dangerousBrakeValue = 0;
+  double dangerousTurnValue = 0;
+  double score = 0;
+  double dangerousSpeedValue = 0;
+  double averageSpeedValue = 0;
+  double drivingTimeValue = 0;
+  Map<dynamic, dynamic> objectBraking = {};
+  Map<dynamic, dynamic> objectAcc = {};
+  Map<dynamic, dynamic> objectSendTransaction = {};
   @override
   void initState() {
     super.initState();
     db = TelemeticsDatabase.instance;
     dbAcc = TelemeticsAccelerationDatabase.instance;
     WidgetsFlutterBinding.ensureInitialized();
-    httpClient = Client();
-    ethClient = Web3Client(url, httpClient);
     accelerationScore = dbAcc.readAllData();
 
     brakingScore = db.readAllData();
-  }
-
-  Future<DeployedContract> loadContract() async {
-    String abi = await rootBundle.loadString('assets/abi/abi.json');
-    String contractAddress = "0xBca0fDc68d9b21b5bfB16D784389807017B2bbbc";
-    final contract = DeployedContract(ContractAbi.fromJson(abi, "DRS_1"),
-        EthereumAddress.fromHex(contractAddress));
-    return contract;
-  }
-
-  Future<String> submit(String functionName, List<dynamic> args) async {
-    EthPrivateKey credentials = EthPrivateKey.fromHex(
-        "60990d109319b975595a0cd9b74823aac59b23654ff61bb0322add2eb6f3cf46");
-
-    DeployedContract contract = await loadContract();
-    final ethFunction = contract.function(functionName);
-    final result = await ethClient.sendTransaction(
-        credentials,
-        Transaction.callContract(
-            contract: contract, function: ethFunction, parameters: args),
-        chainId: null,
-        fetchChainIdFromNetworkId: true);
-    return result;
-  }
-
-  Future<void> sendData(String targetAddress) async {
-    var bigAmount = BigInt.from(10);
-    var response = await submit("addData", [
-      bigAmount,
-      bigAmount,
-      bigAmount,
-      bigAmount,
-      bigAmount.toString(),
-      bigAmount.toString(),
-      BigInt.from(80)
-    ]);
-    print(response);
-    // return response;
   }
 
   Future<void> _showMyDialog() async {
@@ -84,7 +54,7 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Theme.of(context).primaryColorLight,
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: Center(
               child: Text(
                   "Uploaded! wait about 1-2 minutes before reading your data"),
@@ -125,7 +95,7 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     "Braking Table",
                     style: TextStyle(
@@ -133,7 +103,7 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).textTheme.subtitle1?.color),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   FutureBuilder<List<TelemeticsDatabaseModel>>(
                       future: brakingScore,
                       builder: (context, snapshot) {
@@ -149,9 +119,9 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
                                       snapshot.data![index];
                                   return TelemeticsHistoryBox(
                                     deductedScore: braking.score.toString(),
-                                    date: '7/12/2565',
+                                    date: '26/04/2023',
                                     title: 'Braking',
-                                    titleValue: braking.highestValue.toString(),
+                                    titleValue: braking.brakingValue.toString(),
                                   );
                                 });
                           } else {
@@ -172,10 +142,10 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
                                 ));
                           }
                         } else {
-                          return Text("Empty");
+                          return const Text("Empty");
                         }
                       }),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     "Acceleration Table",
                     style: TextStyle(
@@ -183,7 +153,7 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).textTheme.subtitle1?.color),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   FutureBuilder<List<TelemeticsAccelerationModel>>(
                       future: accelerationScore,
                       builder: (context, snapshot) {
@@ -203,7 +173,7 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
                                         accelerationScore.score.toString(),
                                     date: '14/12/2565',
                                     title: 'Acceleration',
-                                    titleValue: accelerationScore.highestValue
+                                    titleValue: accelerationScore.averageSpeed
                                         .toString(),
                                   );
                                 });
@@ -225,28 +195,60 @@ class _TelemeticsTransactionState extends State<TelemeticsTransaction> {
                                 ));
                           }
                         } else {
-                          return Text("Empty");
+                          return const Text("Empty");
                         }
                       }),
-                  SizedBox(height: 10),
-                  Text(
-                    "Result of All Tables",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).textTheme.subtitle1?.color),
-                  ),
-                  SizedBox(height: 10),
-                  ResultBox(
-                      brakingValue: '8',
-                      accelerationValue: "2",
-                      deductedScoreValue: "4",
-                      date: "12/12/2565"),
+                  const SizedBox(height: 10),
                   TelemeticsButton(
-                    onPressed: () {
+                    onPressed: () async {
                       try {
-                        sendData("hfg");
-                        _showMyDialog();
+                        await dbAcc.readAllData().then((value) {
+                          dangerousSpeedValue = 0;
+                          averageSpeedValue = 0;
+                          drivingTimeValue = 0;
+                          for (var element in value) {
+                            dangerousSpeedValue += element.dangerousSpeed;
+                            averageSpeedValue += element.averageSpeed;
+                            drivingTimeValue += element.drivingTime;
+                            score += element.score;
+                          }
+                          objectAcc = {
+                            "dangerousSpeed": dangerousSpeedValue.toInt(),
+                            "averageSpeed": averageSpeedValue.toString(),
+                            "drivingTime": drivingTimeValue.toInt(),
+                          };
+                        });
+                        await db.readAllData().then((value) {
+                          brakingValue = 0;
+                          dangerousBrakeValue = 0;
+                          dangerousTurnValue - 0;
+                          for (var element in value) {
+                            brakingValue += element.brakingValue;
+                            dangerousBrakeValue += element.dangerousBrakeValue;
+                            dangerousTurnValue += element.dangerousTurnValue;
+                            score += element.score;
+                          }
+                          objectBraking = {
+                            "braking": brakingValue.toInt(),
+                            "dangerousBrake": dangerousBrakeValue.toInt(),
+                            "dangerousTurn": dangerousTurnValue.toInt(),
+                            "date": "26/4/2566",
+                            "score": score.toInt(),
+                          };
+                          score = 0;
+                        });
+                        objectSendTransaction = {
+                          "data": [
+                            {...objectAcc, ...objectBraking}
+                          ]
+                        };
+                        // ignore: use_build_context_synchronously
+                        context
+                            .read<DashboardCubitCubit>()
+                            .funcAddDataDriving(objectSendTransaction);
+
+                        print(objectSendTransaction);
+                        // _showMyDialog();
                       } catch (e) {
                         print(e.toString());
                       }

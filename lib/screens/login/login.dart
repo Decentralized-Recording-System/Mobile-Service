@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:telemetics/model/share_preferance/signIn_share_preferance.dart';
 import 'package:telemetics/screens/index.dart';
 
 import '../../logic/index.dart';
@@ -105,21 +107,22 @@ class _LoginState extends State<Login> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        SignIn user = SignIn(
-                            email: "pond_nattapoom@hotmail.com",
-                            password: password.text);
+                        SignIn user =
+                            SignIn(email: email.text, password: password.text);
                         try {
-                          // context
-                          //     .read<LoginCubitCubit>()
-                          //     .funcLogin(user)
-                          //     .then((value) => {
-                          //           if (value)
-                          //             {
-                          //               Navigator.pushReplacementNamed(
-                          //                   context, PassCodeSetting.id)
-                          //             }
-                          //         });
-                          Navigator.pushReplacementNamed(context, Launcher.id);
+                          context
+                              .read<LoginCubitCubit>()
+                              .funcLogin(user)
+                              .then((value) => {
+                                    if (value)
+                                      {
+                                        Navigator.pushReplacementNamed(
+                                            context, PassCodeSetting.id)
+                                        // Navigator.pushReplacementNamed(
+                                        //     context, PassCodeSetting.id)
+                                      }
+                                  });
+                          // Navigator.pushReplacementNamed(context, Launcher.id);
                         } catch (e) {
                           print(e.toString());
                         }

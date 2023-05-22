@@ -6,5 +6,7 @@
     "Languages": "ภาษา",
     "Profile": "ข้อมูลส่วนตัว",
     "Theme": "ธีม",
-    "Logout": "ออกจากระบบ"
+    "Contract": "สัญญา",
+    "Logout": "ออกจากระบบ",
+    "MyContract": "สัญญาของฉัน"
 }

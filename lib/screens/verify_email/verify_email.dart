@@ -102,7 +102,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             VerifyEmail verifyEmail = VerifyEmail(
-                                email: "pond_nattapoom@hotmail.com",
+                                email: "yruzkid34201@gmail.com",
                                 code: int.parse(code.text));
                             context
                                 .read<LoginCubitCubit>()

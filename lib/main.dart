@@ -19,6 +19,7 @@ import 'package:flutter_background_service_android/flutter_background_service_an
 import 'package:device_info_plus/device_info_plus.dart';
 import 'constants/i18n/index.dart';
 import 'constants/index.dart';
+import 'logic/dashboard_cubit/dashboard_cubit_cubit.dart';
 import 'logic/index.dart';
 import 'model/index.dart';
 import 'repositories/index.dart';
@@ -138,7 +139,7 @@ void onStart(ServiceInstance service) async {
   });
 
   // bring to foreground
-  Timer.periodic(const Duration(milliseconds: 30), (timer) async {
+  Timer.periodic(const Duration(seconds: 1), (timer) async {
     final accelerometer =
         _accelerometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
     final gyroscope =
@@ -203,14 +204,16 @@ void onStart(ServiceInstance service) async {
         userAccelerometer != null) {
       var hashBrakeValue = telemetics.telemeticsProcessing(
           accelerometer, gyroscope, userAccelerometer);
-      print(1);
+
       if (hashBrakeValue.isNotEmpty) {
+        print("get data");
         // dbTest.create(TelemeticsTestDatabaseModel(list: list.toString()));
         // caseProcess.getCase(list, db);
         db.create(TelemeticsDatabaseModel(
             score: hashBrakeValue[0],
-            highestValue: hashBrakeValue[1],
-            lowestValue: hashBrakeValue[2]));
+            brakingValue: hashBrakeValue[1],
+            dangerousBrakeValue: hashBrakeValue[2],
+            dangerousTurnValue: 12));
       }
     }
 
@@ -259,6 +262,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   LoginRepository loginRepository = LoginRepository();
   SettingRepository settingRepository = SettingRepository();
+  DrivingRepository drivingRepository = DrivingRepository();
   @override
   void initState() {
     FirebaseMessaging.instance.getInitialMessage().then((message) => {
@@ -292,6 +296,10 @@ class _MyAppState extends State<MyApp> {
             create: (context) =>
                 SettingCubitCubit(settingRepository: settingRepository),
           ),
+          BlocProvider(
+            create: (context) =>
+                DashboardCubitCubit(drivingRepository: drivingRepository),
+          ),
         ],
         child: BlocBuilder<SettingCubitCubit, StateTheme>(
             builder: (context, state) {
@@ -310,7 +318,7 @@ class _MyAppState extends State<MyApp> {
                 ? ThemeClass.lightTheme
                 : ThemeClass.darkTheme,
             title: 'First Flutter App',
-            initialRoute: Login.id,
+            initialRoute: Splash.id,
             routes: AppRouter.routeScreens,
           );
         }));

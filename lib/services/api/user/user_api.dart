@@ -16,7 +16,7 @@ class UserService {
       final objectJsonDecode =
           await networkHelper.getDataAPIWithHeader('user', accessToken);
       print(objectJsonDecode);
-      Users resources = Users.fromJson(objectJsonDecode);
+      Users resources = Users.fromJson(objectJsonDecode['data']);
       return resources;
     } catch (e) {
       print(e.toString());
